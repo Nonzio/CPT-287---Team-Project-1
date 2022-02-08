@@ -5,6 +5,9 @@ Assignment choice: 1B
 Team 4:
 -------
 Nunzio Lamartina
+
 Rebekah Tippy
+
 Philip Newland
+
 Noah Eckert
