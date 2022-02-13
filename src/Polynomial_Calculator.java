@@ -79,7 +79,7 @@ public static int extractTerm(int polyIDNumber, String poly, int start) {
 	
 
 	
-	if (poly.charAt(i) == '−' || poly.charAt(i) == '-') {//first character is a - sign
+	if (poly.charAt(i) == '-') {//first character is a - sign
 		coef.append('-');
 		i++;
 	
@@ -105,7 +105,7 @@ public static int extractTerm(int polyIDNumber, String poly, int start) {
  
 	if (poly.charAt(i)== '^'){//the exponent is greater than 1
 		++i;
-		if (poly.charAt(i) == '−' || poly.charAt(i) == '-') {//a - sign follows the ^ sign
+		if (poly.charAt(i) == '-') {//a - sign follows the ^ sign
 			expo.append('-');
 			i++;
 		}
