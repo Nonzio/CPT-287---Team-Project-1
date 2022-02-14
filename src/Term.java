@@ -78,36 +78,52 @@ public class Term implements Comparable<Term> {
 		
 		//Exponent superscript mapping - May require UTF-8 Workspace settings
 		int expo = this.exponent;
+		
+		
 		if(expo < 0) {
 			expo *= -1;
 			sb.append("\u207B");
 		}
-		
-		switch(expo) {
-		case 2:
-			sb.append("\u00B2");
-			break;
-		case 3:
-			sb.append("\u00B3");
-			break;
-		case 4:
-			sb.append("\u2074");
-			break;
-		case 5:
-			sb.append("\u2075");
-			break;
-		case 6:
-			sb.append("\u2076");
-			break;
-		case 7:
-			sb.append("\u2077");
-			break;
-		case 8:
-			sb.append("\u2078");
-			break;
-		case 9:
-			sb.append("\u2079");
-			break;
+		String expo_stringform = Integer.toString(expo);
+		//System.out.println("string length: "+expo_stringform.length());
+		//For every digit in exponent, append proper superscript
+		for(int i = 0; i<expo_stringform.length();i++) {
+			switch(expo_stringform.charAt(i)) {
+				case '0':
+					if(i > 0) {
+						sb.append("\u2070");
+					}
+					break;
+				case '1':
+					if(i > 0) {
+						sb.append("\u2071");
+					}
+					break;
+				case '2':
+					sb.append("\u00B2");
+					break;
+				case '3':
+					sb.append("\u00B3");
+					break;
+				case '4':
+					sb.append("\u2074");
+					break;
+				case '5':
+					sb.append("\u2075");
+					break;
+				case '6':
+					sb.append("\u2076");
+					break;
+				case '7':
+					sb.append("\u2077");
+					break;
+				case '8':
+					sb.append("\u2078");
+					break;
+				case '9':
+					sb.append("\u2079");
+					break;
+			}
 		}
 		
 		return sb.toString();
@@ -131,8 +147,6 @@ public class Term implements Comparable<Term> {
 			if(t.variable == 'x' && this.variable == ' '){
 				return 1;
 			}else if(t.variable == ' ' && this.variable == 'x') {
-				return -1;
-			}else {
 				return -1;
 			}
 		}
