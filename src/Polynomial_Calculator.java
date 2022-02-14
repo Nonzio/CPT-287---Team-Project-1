@@ -19,7 +19,6 @@ public class Polynomial_Calculator {
 		listOfPoly.add(secondPoly);
 		listOfPoly.add(addedPoly);
 		
-		
 		//enters the first polynomial
 		System.out.println("Enter first polynomial with no spaces. Use '^' to represent powers. (example: 3x^3-x^2+1): ");//asks user for first polynomial to add
 		String userInput = input.nextLine();
@@ -54,8 +53,7 @@ public class Polynomial_Calculator {
 			}
 			returnPack = extractTerm(userInput, returnPack[3]);// Updates returnPack with the data for the next Term
 		}
-				
-		
+	
 	//prints the terms in all the polynomials
 		Iterator<Polynomial> listIterator = listOfPoly.listIterator();//creates an iterator for listOfPoly
 		while (listIterator.hasNext()) {
@@ -64,12 +62,14 @@ public class Polynomial_Calculator {
 			
 			while (termIt.hasNext()) {//prints each term
 				System.out.println(termIt.next().toString());
+				//nextPoly.addTerm(termIt.next());
 			}
 		}
 		
+		//System.out.println(listOfPoly.listIterator().next());
+		
 	}//end main
 	
-		
 	/**
 	 * Extracts the variable, exponent, and coefficient from the users string and
 	 * adds them to an array with the index to start extracting the next term at.
