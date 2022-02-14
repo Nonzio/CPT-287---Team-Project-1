@@ -120,6 +120,7 @@ while (userChoice != 'q'){
 				addedPoly.clear();
 			}
 			addedPoly.combinePoly(firstPoly, secondPoly);//addedPoly = firstPoly + secondPoly
+			addedPoly.sortPoly();
 			System.out.println("\nYour polynomials have been added. \n");
 			break;
 	
