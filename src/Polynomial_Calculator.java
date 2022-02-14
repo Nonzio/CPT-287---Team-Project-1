@@ -85,7 +85,6 @@ while (userChoice != 'q'){
 				secondPoly.clear();
 			}
 			
-			returnPack = new int[4];
 			returnPack = extractTerm(userInput, 0);//Contents 0: coefficient, 1: variable (0 = ' ', 1 = 'x'), 2:exponent, 3: index To Start At next
 			
 			while (returnPack[3] <= userInput.length()) {//Iterates polynomial extracting Terms adding them to firstPoly. combines terms with same coefficient and wont add terms with 0 coefficient.
@@ -113,7 +112,7 @@ while (userChoice != 'q'){
 				}
 				returnPack = extractTerm(userInput, returnPack[3]);// Updates returnPack with the data for the next Term
 			}
-					firstPoly.sortPoly();
+					secondPoly.sortPoly();
 			break;
 			
 		case 'a'://add the polynomials together
