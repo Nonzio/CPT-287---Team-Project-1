@@ -79,7 +79,6 @@ public class Term implements Comparable<Term> {
 		//Exponent superscript mapping - May require UTF-8 Workspace settings
 		int expo = this.exponent;
 		
-		
 		if(expo < 0) {
 			expo *= -1;
 			sb.append("\u207B");
@@ -90,13 +89,11 @@ public class Term implements Comparable<Term> {
 		for(int i = 0; i<expo_stringform.length();i++) {
 			switch(expo_stringform.charAt(i)) {
 				case '0':
-					if(i > 0) {
-						sb.append("\u2070");
-					}
+					sb.append("\u2070");
 					break;
 				case '1':
-					if(i > 0) {
-						sb.append("\u2071");
+					if(expo > 1) {
+						sb.append("\u00B9");
 					}
 					break;
 				case '2':
