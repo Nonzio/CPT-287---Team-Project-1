@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ListIterator;
 
+import polynomial_addition.Term;
+
 
 
 
@@ -16,6 +18,31 @@ public class Polynomial<T> extends ArrayList<Term> {
 			this.add(other.get(w));
 		}
 	}
+	
+	//methods
+	
+	/**
+	 * Wont add terms with 0 Coefficients. Compares term to be added with terms already 
+	 * in polynomial and combines it with a term with the same exponent if one exists. If one does not exist the new term is added.
+	 * @param t: Term to be added
+	 */
+	public void addTerm(Term t) {
+		if (t.getCoefficient() != 0) {//only add if coefficient is not 0
+			if (this.size()==0) {//if there are no other terms add this one
+				this.add(t);
+			}else {//if there are other terms check to see if you can add with a term with the same exponent
+				for (int d=0; d < this.size(); d++) {
+					if ((this.get(d).getExponent() == t.getExponent()) && (this.get(d).getVariable()== t.getVariable())) {//A Term matches the variable and exponent of the term to be added
+						t.setCoefficient(t.getCoefficient() + this.get(d).getCoefficient());
+						this.dropTerm(this.get(d));//deletes the term that matches
+						}
+					}
+					if (t.getCoefficient() != 0) {//Confirms that the new Coef is still not 0 and adds the term
+						this.add(t);
+					}
+			}
+		}
+	}//end addTerm
 	
 	/**
 	 * adds the first and second polynomials and returns a new polynomial with the added terms
