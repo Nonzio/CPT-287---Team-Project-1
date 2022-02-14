@@ -1,7 +1,6 @@
 
 import java.util.Scanner;
 
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -15,58 +14,127 @@ public class Polynomial_Calculator {
 	static Scanner input = new Scanner(System.in);
 	
 	public static void main(String[] args) {
+		int returnPack[] = new int[4];//stores extractTerm return data
+		int Coef, Expo;//found in returnPack[0] and returnPack[2].
+		char variable = ' ';
+		
 		listOfPoly.add(firstPoly);//adds polynomials in correct order
 		listOfPoly.add(secondPoly);
 		listOfPoly.add(addedPoly);
 		
-		//enters the first polynomial
-		System.out.println("Enter first polynomial with no spaces. Use '^' to represent powers. (example: 3x^3-x^2+1): ");//asks user for first polynomial to add
-		String userInput = input.nextLine();
 		
-		int returnPack[] = new int[4];
-		returnPack = extractTerm(userInput, 0);//Contents 0: coefficient, 1: variable (0 = ' ', 1 = 'x'), 2:exponent, 3: index To Start At next
 		
-		while (returnPack[3] <= userInput.length()) {//Iterates through the users polynomial extracting the Terms and adding them to firstPoly. 
-			                                         //also combines terms with the same coefficient and wont add terms with 0 a coefficient.
-			int Coef = returnPack[0];
-			int varNum = returnPack[1];
-			int Expo = returnPack[2];//Makes things more readable
-			char var = ' ';
-			if (varNum == 1) {var = 'x';}//converts var number to letter for Term constructor
+		System.out.print("Chose a command:\n"
+				   + "f: Enter first polynomial\n"
+				   + "s: Enter second polynomial\n"
+				   + "a: Add the polynomials\n"
+				   + "p: Print the added polynomial\n"
+				   + "q: Quit"
+				   + "\n"
+				   + "Please type \"f\" \"s\" \"a\" \"p\" or \"q\":");
+char userChoice = input.nextLine().charAt(0);
+System.out.println();
+
+while (userChoice != 'q'){
+	switch(userChoice) {
+		case 'f'://enters the first polynomial
+			System.out.println("Enter polynomial with no spaces. Use '^' to represent powers.\n ( example: \"2x^3-3x^-2+3+x+3x\" ): ");//asks user for first polynomial to add
+			String userInput = input.nextLine();
 			
-			if (Coef != 0) {//only add if coefficient is not 0
-				if (firstPoly.size()==0) {//if there are no other terms add this one
-					Term newTerm = new Term(Coef, var, Expo);
-					firstPoly.add(newTerm);
-				}else {//if there are other terms check to see if you can add with a term with the same exponent
-					for (int d=0; d < firstPoly.size(); d++) {
-						if (firstPoly.get(d).getExponent() == Expo && firstPoly.get(d).getVariable()== var) {//A Term matches the variable and exponent of the term to be added
-								Coef = Coef + firstPoly.get(d).getCoefficient();//adds the term that matches coefficient to the new terms coefficient
-								firstPoly.dropTerm(firstPoly.get(d));//deletes the term that matches
+			returnPack = extractTerm(userInput, 0);//Contents 0: coefficient, 1: variable (0 = ' ', 1 = 'x'), 2:exponent, 3: index To Start At next
+			
+			while (returnPack[3] <= userInput.length()) {//Iterates polynomial extracting Terms adding them to firstPoly. combines terms with same coefficient and wont add terms with 0 coefficient.
+				Coef = returnPack[0];
+				Expo = returnPack[2];//Makes things more readable
+				variable=' ';
+				if (returnPack[1] == 1) {variable = 'x';}//converts variable number to letter for Term constructor
+				
+				if (Coef != 0) {//only add if coefficient is not 0
+					if (firstPoly.size()==0) {//if there are no other terms add this one
+						Term newTerm = new Term(Coef, variable, Expo);
+						firstPoly.add(newTerm);
+					}else {//if there are other terms check to see if you can add with a term with the same exponent
+						for (int d=0; d < firstPoly.size(); d++) {
+							if ((firstPoly.get(d).getExponent() == Expo) && (firstPoly.get(d).getVariable()== variable)) {//A Term matches the variable and exponent of the term to be added
+									Coef = Coef + firstPoly.get(d).getCoefficient();//adds the term that matches coefficient to the new terms coefficient
+									firstPoly.dropTerm(firstPoly.get(d));//deletes the term that matches
+								}
 							}
-						}
-						if (Coef != 0) {//Confirms that the new Coef is still not 0 and adds the term
-							Term newTerm = new Term(Coef, var, Expo);
-							firstPoly.add(newTerm);
-						}
+							if (Coef != 0) {//Confirms that the new Coef is still not 0 and adds the term
+								Term newTerm = new Term(Coef, variable, Expo);
+								firstPoly.add(newTerm);
+							}
+					}
+				}
+				returnPack = extractTerm(userInput, returnPack[3]);// Updates returnPack with the data for the next Term
+			}
+					firstPoly.sortPoly();
+			break;
+		case 's':
+			System.out.println("Enter polynomial with no spaces. Use '^' to represent powers.\n ( example: \"2x^3-3x^-2+3+x+3x\" ): ");//asks user for first polynomial to add
+			userInput = input.nextLine();
+			
+			returnPack = new int[4];
+			returnPack = extractTerm(userInput, 0);//Contents 0: coefficient, 1: variable (0 = ' ', 1 = 'x'), 2:exponent, 3: index To Start At next
+			
+			while (returnPack[3] <= userInput.length()) {//Iterates polynomial extracting Terms adding them to firstPoly. combines terms with same coefficient and wont add terms with 0 coefficient.
+				Coef = returnPack[0];
+				Expo = returnPack[2];//Makes things more readable
+				variable = ' ';
+				if (returnPack[1] == 1) {variable = 'x';}//converts variable number to letter for Term constructor
+				
+				if (Coef != 0) {//only add if coefficient is not 0
+					if (secondPoly.size()==0) {//if there are no other terms add this one
+						Term newTerm = new Term(Coef, variable, Expo);
+						secondPoly.add(newTerm);
+					}else {//if there are other terms check to see if you can add with a term with the same exponent
+						for (int d=0; d < secondPoly.size(); d++) {
+							if (secondPoly.get(d).getExponent() == Expo && secondPoly.get(d).getVariable()== variable) {//A Term matches the variable and exponent of the term to be added
+									Coef = Coef + secondPoly.get(d).getCoefficient();//adds the term that matches coefficient to the new terms coefficient
+									secondPoly.dropTerm(secondPoly.get(d));//deletes the term that matches
+								}
+							}
+							if (Coef != 0) {//Confirms that the new Coef is still not 0 and adds the term
+								Term newTerm = new Term(Coef, variable, Expo);
+								secondPoly.add(newTerm);
+							}
+					}
+				}
+				returnPack = extractTerm(userInput, returnPack[3]);// Updates returnPack with the data for the next Term
+			}
+					firstPoly.sortPoly();
+			break;
+		case 'a'://add the polynomials together
+			Polynomial<Term> tempAdded = firstPoly.combinePoly(secondPoly);
+			for (int i = 0; i < tempAdded.size(); i++) {
+				addedPoly.add(tempAdded.get(i));
+			}
+			System.out.println("\nYour polynomials have been added. \n");
+			break;
+		case 'p'://print the terms in all the polynomials
+			//prints the terms in all the polynomials
+			Iterator<Polynomial> listIterator = listOfPoly.listIterator();//creates an iterator for listOfPoly
+			while (listIterator.hasNext()) {
+				Polynomial nextPoly = listIterator.next();
+				Iterator<Term> termIt = nextPoly.iterator();//creates an iterator for each polynomial
+				System.out.println("-------------");
+				while (termIt.hasNext()) {//prints each term
+					System.out.println(termIt.next().toString());
 				}
 			}
-			returnPack = extractTerm(userInput, returnPack[3]);// Updates returnPack with the data for the next Term
-		}
-	
-	//prints the terms in all the polynomials
-		Iterator<Polynomial> listIterator = listOfPoly.listIterator();//creates an iterator for listOfPoly
-		while (listIterator.hasNext()) {
-			Polynomial nextPoly = listIterator.next();
-			Iterator<Term> termIt = nextPoly.iterator();//creates an iterator for each polynomial
-			
-			while (termIt.hasNext()) {//prints each term
-				System.out.println(termIt.next().toString());
-				//nextPoly.addTerm(termIt.next());
-			}
-		}
-		
-		//System.out.println(listOfPoly.listIterator().next());
+			System.out.println();
+			break;
+	}//end switch
+	System.out.print("f: Enter first polynomial\n"//prints the menu again after each command is run unless 'q' is entered
+		   + "s: Enter second polynomial\n"
+		   + "a: Add the polynomials\n"
+		   + "p: Print the added polynomial\n"
+		   + "q: Quit"
+		   + "\n"
+		   + "Please type \"f\" \"s\" \"a\" \"p\" or \"q\":");
+	userChoice = input.nextLine().charAt(0);
+	System.out.println();
+}//end 'q' while
 		
 	}//end main
 	

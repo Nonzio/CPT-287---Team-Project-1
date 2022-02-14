@@ -122,11 +122,11 @@ public class Term implements Comparable<Term> {
 	//compareTo - compares one term to another on the basis of their exponents
 	@Override
 	public int compareTo(Term t) {
-		if(t.exponent == this.exponent) {
+		if(t.exponent == this.exponent && t.variable == this.variable) {
 			return 0;//Terms are of same power
-		}else if(t.exponent > this.exponent) {
+		}else if(t.exponent > this.exponent || (t.variable == 'x' && this.variable == ' ')) {
 			return -1;//passed term is of lower power
-		}else if(t.exponent < this.exponent) {
+		}else if(t.exponent < this.exponent || (t.variable == ' ' && this.variable == 'x')) {
 			return 1;//passed term is of higher power
 		}
 		return -2;//Error
