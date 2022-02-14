@@ -37,9 +37,15 @@ System.out.println();
 
 while (userChoice != 'q'){
 	switch(userChoice) {
+	
 		case 'f'://enters the first polynomial
 			System.out.println("Enter polynomial with no spaces. Use '^' to represent powers.\n ( example: \"2x^3-3x^-2+3+x+3x\" ): ");//asks user for first polynomial to add
 			String userInput = input.nextLine();
+			
+			if (firstPoly.size()!= 0) {//clears the first poly so you can fill it with new terms
+				firstPoly.clear();
+			}
+			
 			
 			returnPack = extractTerm(userInput, 0);//Contents 0: coefficient, 1: variable (0 = ' ', 1 = 'x'), 2:exponent, 3: index To Start At next
 			
@@ -70,9 +76,14 @@ while (userChoice != 'q'){
 			}
 					firstPoly.sortPoly();
 			break;
+			
 		case 's':
 			System.out.println("Enter polynomial with no spaces. Use '^' to represent powers.\n ( example: \"2x^3-3x^-2+3+x+3x\" ): ");//asks user for first polynomial to add
 			userInput = input.nextLine();
+			
+			if (secondPoly.size()!= 0) {//clears the second poly so you can fill it with new terms
+				secondPoly.clear();
+			}
 			
 			returnPack = new int[4];
 			returnPack = extractTerm(userInput, 0);//Contents 0: coefficient, 1: variable (0 = ' ', 1 = 'x'), 2:exponent, 3: index To Start At next
@@ -104,13 +115,15 @@ while (userChoice != 'q'){
 			}
 					firstPoly.sortPoly();
 			break;
+			
 		case 'a'://add the polynomials together
-			Polynomial<Term> tempAdded = firstPoly.combinePoly(secondPoly);
-			for (int i = 0; i < tempAdded.size(); i++) {
-				addedPoly.add(tempAdded.get(i));
+			if (addedPoly.size() !=0) {//clears old addedPoly data 
+				addedPoly.clear();
 			}
+			addedPoly.combinePoly(firstPoly, secondPoly);//addedPoly = firstPoly + secondPoly
 			System.out.println("\nYour polynomials have been added. \n");
 			break;
+	
 		case 'p'://print the terms in all the polynomials
 			//prints the terms in all the polynomials
 			Iterator<Polynomial> listIterator = listOfPoly.listIterator();//creates an iterator for listOfPoly
