@@ -28,6 +28,7 @@ public class Polynomial<T> extends ArrayList<Term> {
 		boolean hasBeenAdded = false;
 		for (int i = 0; i < Second.size(); i++) {//iterates through the second polys terms
 			for (int a = 0; a < added.size(); a++) {//iterates through the first polys terms
+				
 				if ((added.get(a)).compareTo(Second.get(i))==0) {//compares each term in the second poly to each term in the first poly
 					Coef = (added.get(a)).getCoefficient() + (Second.get(i)).getCoefficient();//adds the term that matches coefficient to the new terms coefficient
 					added.dropTerm(added.get(a));//removes the matching term
@@ -37,17 +38,19 @@ public class Polynomial<T> extends ArrayList<Term> {
 						added.add(newTerm);
 						hasBeenAdded = true;
 					}
-				}else {//if there are no matching coefficients then the second polys term is added
-					added.add(Second.get(i));
-					hasBeenAdded = true;
 				}
+				
 				if (hasBeenAdded == true) {break;}
 			}
+		if (hasBeenAdded == false){
+			added.add(Second.get(i));
+		}
 		hasBeenAdded = false;
-		}
-		for (int i =0; i < added.size(); i++) {
-			this.add(added.get(i));
-		}
+		}// added has been populated
+		
+		for (int n =0; n < added.size(); n++) {
+			this.add(added.get(n));
+		}//adds the terms from added into addedPoly
 	}//O(n^2)
 		
 		public void sortPoly() {
