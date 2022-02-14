@@ -121,7 +121,10 @@ while (userChoice != 'q'){
 				while (termIt.hasNext()) {//prints each term
 					System.out.println(termIt.next().toString());
 				}
+				System.out.println("Nunz: " + nextPoly.toString());
+
 			}
+			
 			System.out.println();
 			break;
 	}//end switch
