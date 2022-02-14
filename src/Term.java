@@ -4,7 +4,7 @@ public class Term implements Comparable<Term> {
 	private int coefficient;
 	private char variable = ' '; // char type limits terms to having only one variable letter
 	private int exponent = 1;
-	private boolean negexpo_flag = false;//Tracks whether exponent is negative - For ease of use in unicode lookup
+	//private boolean negexpo_flag = false;//Tracks whether exponent is negative - For ease of use in unicode lookup
 	
 	//Create a constant number term.
 	public Term(int coef) {
@@ -24,7 +24,8 @@ public class Term implements Comparable<Term> {
 	public Term(int coef, char vari, int expo) {
 		this.coefficient = coef;
 		this.variable = vari;
-		this.setExponent(expo);
+		this.exponent = expo;
+		//this.setExponent(expo);
 	}
 	
 	//Setter functions
@@ -37,13 +38,13 @@ public class Term implements Comparable<Term> {
 	}
 	
 	public void setExponent(int expo) {
-		if(expo < 0) {
-			this.exponent = -1 * expo;
-			negexpo_flag = true;
-		}else {
+		//if(expo < 0) {
+			//this.exponent = -1 * expo;
+			//negexpo_flag = true;
+		//}else {
 			this.exponent = expo;
-			negexpo_flag = false;
-		}
+			//negexpo_flag = false;
+		//}
 	}
 	
 	//Getter functions
@@ -57,11 +58,11 @@ public class Term implements Comparable<Term> {
 	
 	public int getExponent() {
 		//Turn negative if appropriate
-		if(negexpo_flag == true) {
-			return this.exponent * -1;
-		}else {
+		//if(negexpo_flag == true) {
+		//	return this.exponent * -1;
+		//}else {
 			return this.exponent;
-		}
+		//}
 	}
 	
 	//Converts term to String form
@@ -76,11 +77,13 @@ public class Term implements Comparable<Term> {
 		}
 		
 		//Exponent superscript mapping - May require UTF-8 Workspace settings
-		if(this.negexpo_flag == true) {
+		int expo = this.exponent;
+		if(expo < 0) {
+			expo *= -1;
 			sb.append("\u207B");
 		}
 		
-		switch(this.exponent) {
+		switch(expo) {
 		case 2:
 			sb.append("\u00B2");
 			break;
@@ -122,6 +125,18 @@ public class Term implements Comparable<Term> {
 	//compareTo - compares one term to another on the basis of their exponents
 	@Override
 	public int compareTo(Term t) {
+		
+		//Directs negative exponents to end of polynomial
+		if(t.exponent < 0) {
+			if(t.variable == 'x' && this.variable == ' '){
+				return 1;
+			}else if(t.variable == ' ' && this.variable == 'x') {
+				return -1;
+			}else {
+				return -1;
+			}
+		}
+		
 		if(t.exponent == this.exponent && t.variable == this.variable) {
 			return 0;//Terms are of same power
 		}else if(t.exponent > this.exponent || (t.variable == 'x' && this.variable == ' ')) {
