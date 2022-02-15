@@ -1,7 +1,6 @@
 
 import java.util.Scanner;
 
-import polynomial_addition.Term;
 
 import java.util.ArrayList;
 import java.util.Iterator;
