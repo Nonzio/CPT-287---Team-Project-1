@@ -1,13 +1,8 @@
 
 import java.util.Scanner;
 
-
-import java.util.ArrayList;
-import java.util.Iterator;
-
 public class Polynomial_Calculator {
 
-	static ArrayList<Polynomial> listOfPoly = new ArrayList();
 	static Polynomial<Term> firstPoly = new Polynomial();//These polynomials should be in this order in listOfPoly
 	static Polynomial<Term> secondPoly = new Polynomial();
 	static Polynomial<Term> addedPoly = new Polynomial();
@@ -16,14 +11,8 @@ public class Polynomial_Calculator {
 	
 	public static void main(String[] args) {
 		int returnPack[] = new int[4];//stores extractTerm return data
-		int Coef, Expo;//found in returnPack[0] and returnPack[2].
 		char variable = ' ';
-		
-		listOfPoly.add(firstPoly);//adds polynomials in correct order
-		listOfPoly.add(secondPoly);
-		listOfPoly.add(addedPoly);
-		
-		
+	
 		
 		System.out.print("Chose a command:\n"
 				   + "f: Enter first polynomial\n"
@@ -92,19 +81,7 @@ while (userChoice != 'q'){
 			break;
 	
 		case 'p'://print the terms in all the polynomials
-			//prints the terms in all the polynomials
-			Iterator<Polynomial> listIterator = listOfPoly.listIterator();//creates an iterator for listOfPoly
-			while (listIterator.hasNext()) {
-				Polynomial nextPoly = listIterator.next();
-				Iterator<Term> termIt = nextPoly.iterator();//creates an iterator for each polynomial
-				System.out.println("-------------");
-				while (termIt.hasNext()) {//prints each term
-					System.out.println(termIt.next().toString());
-				}
-				System.out.println("Full polynomial: " + nextPoly.toString());
-
-			}
-			
+			System.out.println("results: " + firstPoly.toString()+ " + " + secondPoly.toString() + " = " + addedPoly.toString());
 			System.out.println();
 			break;
 	}//end switch
