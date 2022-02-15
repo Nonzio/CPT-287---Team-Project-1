@@ -4,14 +4,13 @@ public class Term implements Comparable<Term> {
 	private int coefficient;
 	private char variable = ' '; // char type limits terms to having only one variable letter
 	private int exponent = 1;
-	//private boolean negexpo_flag = false;//Tracks whether exponent is negative - For ease of use in unicode lookup
+
 	
-	//Create a complete term
+	//Constructor
 	public Term(int coef, char vari, int expo) {
 		this.coefficient = coef;
 		this.variable = vari;
 		this.exponent = expo;
-		//this.setExponent(expo);
 	}
 	
 	//Setter functions
@@ -21,16 +20,6 @@ public class Term implements Comparable<Term> {
 	
 	public void setVariable(char vari) {
 		this.variable = vari;
-	}
-	
-	public void setExponent(int expo) {
-		//if(expo < 0) {
-			//this.exponent = -1 * expo;
-			//negexpo_flag = true;
-		//}else {
-			this.exponent = expo;
-			//negexpo_flag = false;
-		//}
 	}
 	
 	//Getter functions
@@ -43,12 +32,7 @@ public class Term implements Comparable<Term> {
 	}
 	
 	public int getExponent() {
-		//Turn negative if appropriate
-		//if(negexpo_flag == true) {
-		//	return this.exponent * -1;
-		//}else {
 			return this.exponent;
-		//}
 	}
 	
 	//Converts term to String form
@@ -76,7 +60,7 @@ public class Term implements Comparable<Term> {
 			sb.append("\u207B");
 		}
 		String expo_stringform = Integer.toString(expo);
-		//System.out.println("string length: "+expo_stringform.length());
+
 		//For every digit in exponent, append proper superscript
 		for(int i = 0; i<expo_stringform.length();i++) {
 			switch(expo_stringform.charAt(i)) {
@@ -116,15 +100,6 @@ public class Term implements Comparable<Term> {
 		}
 		
 		return sb.toString();
-	}
-	
-	//Returns true when term is only a constant number
-	public boolean isConstant() {
-		if(this.variable == ' ' && this.exponent == 1) {
-			return true;
-		}else {
-			return false;
-		}
 	}
 
 	//compareTo - compares one term to another on the basis of their exponents
