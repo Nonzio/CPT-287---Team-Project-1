@@ -7,12 +7,12 @@ import java.util.ListIterator;
 
 
 
-public class Polynomial<T> extends ArrayList<Term> {
+public class Polynomial extends ArrayList<Term> {
 
 	//Constructors
 	public Polynomial() {}
 	
-	public Polynomial(Polynomial<T> other) {//copy constructor
+	public Polynomial(Polynomial other) {//copy constructor
 		for (int w =0; w < other.size(); w++) {
 			this.add(other.get(w));
 		}
@@ -52,8 +52,8 @@ public class Polynomial<T> extends ArrayList<Term> {
 	 * @param Second: the second polynomial 
 	 * @return: added: A polynomial made by adding the terms in second and first polynomials
 	 */
-	public void combinePoly(Polynomial<Term> First, Polynomial<Term> Second){
-		Polynomial<Term> added = new Polynomial(First);
+	public void combinePoly(Polynomial First, Polynomial Second){
+		Polynomial added = new Polynomial(First);
 		int Coef = 0;
 		boolean hasBeenAdded = false;
 		for (int i = 0; i < Second.size(); i++) {//iterates through the second polys terms

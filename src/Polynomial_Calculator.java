@@ -3,9 +3,9 @@ import java.util.Scanner;
 
 public class Polynomial_Calculator {
 
-	static Polynomial<Term> firstPoly = new Polynomial();//These polynomials should be in this order in listOfPoly
-	static Polynomial<Term> secondPoly = new Polynomial();
-	static Polynomial<Term> addedPoly = new Polynomial();
+	static Polynomial firstPoly = new Polynomial();//These polynomials should be in this order in listOfPoly
+	static Polynomial secondPoly = new Polynomial();
+	static Polynomial addedPoly = new Polynomial();
 	
 	static Scanner input = new Scanner(System.in);
 	
