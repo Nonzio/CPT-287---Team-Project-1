@@ -1,6 +1,8 @@
 
 import java.util.Scanner;
 
+import polynomial_addition.Term;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -50,28 +52,11 @@ while (userChoice != 'q'){
 			returnPack = extractTerm(userInput, 0);//Contents 0: coefficient, 1: variable (0 = ' ', 1 = 'x'), 2:exponent, 3: index To Start At next
 			
 			while (returnPack[3] <= userInput.length()) {//Iterates polynomial extracting Terms adding them to firstPoly. combines terms with same coefficient and wont add terms with 0 coefficient.
-				Coef = returnPack[0];
-				Expo = returnPack[2];//Makes things more readable
-				variable=' ';
+				variable = ' ';
 				if (returnPack[1] == 1) {variable = 'x';}//converts variable number to letter for Term constructor
+				Term newTerm = new Term(returnPack[0], variable, returnPack[2]);
+				firstPoly.addTerm(newTerm);
 				
-				if (Coef != 0) {//only add if coefficient is not 0
-					if (firstPoly.size()==0) {//if there are no other terms add this one
-						Term newTerm = new Term(Coef, variable, Expo);
-						firstPoly.add(newTerm);
-					}else {//if there are other terms check to see if you can add with a term with the same exponent
-						for (int d=0; d < firstPoly.size(); d++) {
-							if ((firstPoly.get(d).getExponent() == Expo) && (firstPoly.get(d).getVariable()== variable)) {//A Term matches the variable and exponent of the term to be added
-									Coef = Coef + firstPoly.get(d).getCoefficient();//adds the term that matches coefficient to the new terms coefficient
-									firstPoly.dropTerm(firstPoly.get(d));//deletes the term that matches
-								}
-							}
-							if (Coef != 0) {//Confirms that the new Coef is still not 0 and adds the term
-								Term newTerm = new Term(Coef, variable, Expo);
-								firstPoly.add(newTerm);
-							}
-					}
-				}
 				returnPack = extractTerm(userInput, returnPack[3]);// Updates returnPack with the data for the next Term
 			}
 					firstPoly.sortPoly();
@@ -88,28 +73,11 @@ while (userChoice != 'q'){
 			returnPack = extractTerm(userInput, 0);//Contents 0: coefficient, 1: variable (0 = ' ', 1 = 'x'), 2:exponent, 3: index To Start At next
 			
 			while (returnPack[3] <= userInput.length()) {//Iterates polynomial extracting Terms adding them to firstPoly. combines terms with same coefficient and wont add terms with 0 coefficient.
-				Coef = returnPack[0];
-				Expo = returnPack[2];//Makes things more readable
 				variable = ' ';
 				if (returnPack[1] == 1) {variable = 'x';}//converts variable number to letter for Term constructor
+				Term newTerm = new Term(returnPack[0], variable, returnPack[2]);
+				secondPoly.addTerm(newTerm);
 				
-				if (Coef != 0) {//only add if coefficient is not 0
-					if (secondPoly.size()==0) {//if there are no other terms add this one
-						Term newTerm = new Term(Coef, variable, Expo);
-						secondPoly.add(newTerm);
-					}else {//if there are other terms check to see if you can add with a term with the same exponent
-						for (int d=0; d < secondPoly.size(); d++) {
-							if (secondPoly.get(d).getExponent() == Expo && secondPoly.get(d).getVariable()== variable) {//A Term matches the variable and exponent of the term to be added
-									Coef = Coef + secondPoly.get(d).getCoefficient();//adds the term that matches coefficient to the new terms coefficient
-									secondPoly.dropTerm(secondPoly.get(d));//deletes the term that matches
-								}
-							}
-							if (Coef != 0) {//Confirms that the new Coef is still not 0 and adds the term
-								Term newTerm = new Term(Coef, variable, Expo);
-								secondPoly.add(newTerm);
-							}
-					}
-				}
 				returnPack = extractTerm(userInput, returnPack[3]);// Updates returnPack with the data for the next Term
 			}
 					secondPoly.sortPoly();
