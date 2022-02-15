@@ -6,20 +6,6 @@ public class Term implements Comparable<Term> {
 	private int exponent = 1;
 	//private boolean negexpo_flag = false;//Tracks whether exponent is negative - For ease of use in unicode lookup
 	
-	//Create a constant number term.
-	public Term(int coef) {
-		this.coefficient = coef;
-		this.variable = ' ';
-		this.exponent = 1;
-	}
-	
-	//Create a variable with coefficient only. ex. 5x, 2a, 3b
-	public Term(int coef, char vari) {
-		this.coefficient = coef;
-		this.variable = vari;
-		this.exponent = 1;
-	}
-	
 	//Create a complete term
 	public Term(int coef, char vari, int expo) {
 		this.coefficient = coef;
@@ -68,8 +54,12 @@ public class Term implements Comparable<Term> {
 	//Converts term to String form
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		if(this.coefficient != 0) {
+		if(!(this.getVariable()=='x'&&this.getCoefficient()==1)) {//wont print a 1 coefficient for terms with x variables
+			if(this.getCoefficient()==-1 && this.getVariable()=='x') {//wont print -1x. instead -x
+				sb.append('-');
+			}else {
 			sb.append(this.coefficient);
+			}
 		}
 		
 		if(this.variable != ' ') {
@@ -79,7 +69,9 @@ public class Term implements Comparable<Term> {
 		//Exponent superscript mapping - May require UTF-8 Workspace settings
 		int expo = this.exponent;
 		
+		boolean negExpo=false;
 		if(expo < 0) {
+			negExpo=true;
 			expo *= -1;
 			sb.append("\u207B");
 		}
@@ -89,10 +81,10 @@ public class Term implements Comparable<Term> {
 		for(int i = 0; i<expo_stringform.length();i++) {
 			switch(expo_stringform.charAt(i)) {
 				case '0':
-					sb.append("\u2070");
+						sb.append("\u2070");
 					break;
 				case '1':
-					if(expo > 1) {
+					if( negExpo == true || expo_stringform.length() > 1) {//Only prints 1 in exponent if the exponent is negative or multiple digits
 						sb.append("\u00B9");
 					}
 					break;
