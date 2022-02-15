@@ -10,7 +10,9 @@ import java.util.ListIterator;
 public class Polynomial extends ArrayList<Term> {
 
 	//Constructors
-	public Polynomial() {}
+	public Polynomial() {
+		//default
+	}
 	
 	public Polynomial(Polynomial other) {//copy constructor
 		for (int w =0; w < other.size(); w++) {
@@ -47,46 +49,51 @@ public class Polynomial extends ArrayList<Term> {
 	}//end addTerm
 	
 	/**
+	 * Sorts Polynomials by decreasing exponent
+	 */
+	public void sortPoly() {
+		Collections.sort(this);
+		Collections.reverse(this);
+	}
+	
+	/**
 	 * adds the first and second polynomials and returns a new polynomial with the added terms
 	 * @param: First: the first polynomial
 	 * @param Second: the second polynomial 
 	 * @return: added: A polynomial made by adding the terms in second and first polynomials
 	 */
-	public void combinePoly(Polynomial First, Polynomial Second){
-		Polynomial added = new Polynomial(First);
-		int Coef = 0;
+	public void combinePoly(Polynomial first, Polynomial second){
+		Polynomial added = new Polynomial(first);
+		int coef = 0;
 		boolean hasBeenAdded = false;
-		for (int i = 0; i < Second.size(); i++) {//iterates through the second polys terms
+		
+		for (int i = 0; i < second.size(); i++) {//iterates through the second polys terms
 			for (int a = 0; a < added.size(); a++) {//iterates through the first polys terms
-				
-				if ((added.get(a)).compareTo(Second.get(i))==0) {//compares each term in the second poly to each term in the first poly
-					Coef = (added.get(a)).getCoefficient() + (Second.get(i)).getCoefficient();//adds the term that matches coefficient to the new terms coefficient
+				if ((added.get(a)).compareTo(second.get(i))==0) {//compares each term in the second poly to each term in the first poly
+					coef = (added.get(a)).getCoefficient() + (second.get(i)).getCoefficient();//adds the term that matches coefficient to the new terms coefficient
 					added.remove(added.get(a));//removes the matching term
-					if (Coef != 0) {//If the Coef is not 0 add the new combined term
-						Term newTerm = new Term(Second.get(i).getCoefficient(), Second.get(i).getVariable(),Second.get(i).getExponent());
-						newTerm.setCoefficient(Coef);
+					if (coef != 0) {//If the Coef is not 0 add the new combined term
+						Term newTerm = new Term(second.get(i).getCoefficient(), second.get(i).getVariable(),second.get(i).getExponent());
+						newTerm.setCoefficient(coef);
 						added.add(newTerm);
 						hasBeenAdded = true;
 					}
 				}
-				
-				if (hasBeenAdded == true) {break;}
+				if (hasBeenAdded == true) {
+					break;
+				}
+			}//end added terms loop
+			if (hasBeenAdded == false) {
+				added.add(second.get(i));
 			}
-		if (hasBeenAdded == false){
-			added.add(Second.get(i));
-		}
-		hasBeenAdded = false;
-		}// added has been populated
+			hasBeenAdded = false;
+		}//end second terms loop
 		
-		for (int n =0; n < added.size(); n++) {
+		for (int n =0; n < added.size(); n++) {//adds the terms from added into addedPoly
 			this.add(added.get(n));
-		}//adds the terms from added into addedPoly
-	}//end combinePoly
-		
-		public void sortPoly() {
-			Collections.sort(this);
-			Collections.reverse(this);
 		}
+		
+	}//end combinePoly
 	
 	public String toString() {
 		ListIterator<Term> it = this.listIterator();
