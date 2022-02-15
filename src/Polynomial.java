@@ -36,12 +36,13 @@ public class Polynomial extends ArrayList<Term> {
 				this.add(t);
 			}else {//if there are other terms check to see if you can add with a term with the same exponent
 				for (int d=0; d < this.size(); d++) {
-					if ((this.get(d).getExponent() == t.getExponent()) && (this.get(d).getVariable()== t.getVariable())) {//A Term matches the variable and exponent of the term to be added
+					if ( this.get(d).compareTo(t) == 0 ) {//A Term matches the variable and exponent of the term to be added
 						t.setCoefficient(t.getCoefficient() + this.get(d).getCoefficient());
 						this.remove(this.get(d));//deletes the term that matches
-						}
+						break;
 					}
-					if (t.getCoefficient() != 0) {//Confirms that the new Coef is still not 0 and adds the term
+				}
+					if (t.getCoefficient() != 0) {//Confirms that the new coefficient is still not 0 and adds the term
 						this.add(t);
 					}
 			}
@@ -102,7 +103,7 @@ public class Polynomial extends ArrayList<Term> {
 		while(it.hasNext()) {
 			Term current_term = it.next();
 			if(current_term.getCoefficient() > 0 && this.indexOf(current_term) != 0) {
-				sb.append("+");
+				sb.append('+');
 			}
 			sb.append(current_term.toString());
 		}
