@@ -116,7 +116,8 @@ public class Polynomial_Calculator {
 		StringBuilder expo = new StringBuilder();
 		int i = start;
 		
-		if (start >= poly.length()) {
+		if (start == poly.length()) {//if there are no more terms return an index that will break the extractTerm loop
+			pack[3]=poly.length()+1;
 			return pack;
 		}
 		if (poly.charAt(i) == '−' || poly.charAt(i) == '-') {//first character is a - sign
