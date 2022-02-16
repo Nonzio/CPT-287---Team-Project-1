@@ -8,6 +8,3 @@ Nunzio Lamartina
 
 Rebekah Tippy
 
-Philip Newland
-
-Noah Eckert
