@@ -31,6 +31,11 @@ public class Polynomial extends ArrayList<Term> {
 		 * @param t: Term to be added
 		 */
 	public void addTerm(Term t) {
+		if (t.getExponent() == 0) {//removes the variable if the exponent is 0
+			t.setExponent(1);
+			t.setVariable(' ');
+		}
+		
 		if (t.getCoefficient() != 0) {//only add if coefficient is not 0
 			if (this.size()==0) {//if there are no other terms add this one
 				this.add(t);

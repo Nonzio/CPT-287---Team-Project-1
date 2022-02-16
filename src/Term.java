@@ -22,6 +22,10 @@ public class Term implements Comparable<Term> {
 		this.variable = vari;
 	}
 	
+	public void setExponent(int expo) {
+		this.exponent = expo;
+	}
+	
 	//Getter functions
 	public int getCoefficient() {
 		return this.coefficient;
@@ -65,7 +69,7 @@ public class Term implements Comparable<Term> {
 		for(int i = 0; i<expo_stringform.length();i++) {
 			switch(expo_stringform.charAt(i)) {
 				case '0':
-						sb.append("\u2070");
+					sb.append("\u2070");
 					break;
 				case '1':
 					if( negExpo == true || expo_stringform.length() > 1) {//Only prints 1 in exponent if the exponent is negative or multiple digits
